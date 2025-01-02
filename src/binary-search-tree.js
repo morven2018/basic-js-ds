@@ -24,7 +24,7 @@ class BinarySearchTree {
   root() {
     return this.rootOfTree;
   }
-
+existence
   add(data) {
     let newNode = new Node(data);
 
@@ -42,14 +42,22 @@ class BinarySearchTree {
     }
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+    if (!this.rootOfTree) return false;
+    return !!this.search(data, this.rootOfTree);
   }
 
-  find(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  search(data, tempRoot){
+    if (!tempRoot) return null;
+    else{ 
+      if (data === tempRoot.data) return tempRoot;
+      if(data > tempRoot.data) return this.search(data, tempRoot.right);
+      return this.search(data, tempRoot.left);
+    }
+  }
+
+  find(data) {
+    return this.search(data, this.rootOfTree);
   }
 
   remove(/* data */) {
