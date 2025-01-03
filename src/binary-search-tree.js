@@ -24,7 +24,7 @@ class BinarySearchTree {
   root() {
     return this.rootOfTree;
   }
-existence
+
   add(data) {
     let newNode = new Node(data);
 
@@ -43,17 +43,15 @@ existence
   }
 
   has(data) {
-    if (!this.rootOfTree) return false;
     return !!this.search(data, this.rootOfTree);
   }
 
   search(data, tempRoot){
     if (!tempRoot) return null;
-    else{ 
-      if (data === tempRoot.data) return tempRoot;
-      if(data > tempRoot.data) return this.search(data, tempRoot.right);
-      return this.search(data, tempRoot.left);
-    }
+    
+    if (data === tempRoot.data) return tempRoot;
+    if(data > tempRoot.data) return this.search(data, tempRoot.right);    
+    return this.search(data, tempRoot.left);
   }
 
   find(data) {
@@ -78,18 +76,13 @@ existence
     } 
 
     if (data === tempNode.data){
-      if (tempNode.left === null && tempNode.right === null){
-        tempNode = null;
-        return tempNode;
-      }
 
-      if(tempNode.left === null){
-        tempNode = tempNode.right;
-        return tempNode;
-      }
+      if (!tempNode.left || !tempNode.right){
 
-      if(tempNode.right === null){
-        tempNode = tempNode.left;
+        if(tempNode.right) tempNode = tempNode.right;
+        else if (tempNode.left) tempNode = tempNode.left;
+        else tempNode = null;
+
         return tempNode;
       }
 
