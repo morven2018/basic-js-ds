@@ -60,19 +60,66 @@ existence
     return this.search(data, this.rootOfTree);
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  remove(data) {
+    this.rootOfTree = this.removeNode(this.rootOfTree, data);
+  }
+
+  removeNode(tempNode, data){
+    if(!tempNode) return null;
+
+    if (data < tempNode.data) {
+      tempNode.left = this.removeNode(tempNode.left, data);
+      return tempNode;
+    }
+
+    if (data > tempNode.data){
+      tempNode.right = this.removeNode(tempNode.right, data);
+      return tempNode;
+    } 
+
+    if (data === tempNode.data){
+      if (tempNode.left === null && tempNode.right === null){
+        tempNode = null;
+        return tempNode;
+      }
+
+      if(tempNode.left === null){
+        tempNode = tempNode.right;
+        return tempNode;
+      }
+
+      if(tempNode.right === null){
+        tempNode = tempNode.left;
+        return tempNode;
+      }
+
+      const temp = this.minNode(tempNode.right);
+      tempNode.data = temp.data;
+
+      tempNode.right = this.removeNode(tempNode.right, temp.data);
+
+      return tempNode;
+    }
   }
 
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    const result = this.minNode(this.rootOfTree);
+    return result.data;
+  }
+
+  minNode(tempNode){
+    if (!tempNode.left) return tempNode;
+    return this.minNode(tempNode.left);
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    const result = this.maxNode(this.rootOfTree);
+    return result.data;
+  }
+
+  maxNode(tempNode){
+    if (!tempNode.right) return tempNode;
+    return this.maxNode(tempNode.right);
   }
 }
 
